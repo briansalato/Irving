@@ -1,0 +1,23 @@
+﻿Turn on
+---------------------------
+Enable-Migrations
+
+Create A Migration
+----------------------------
+Add-Migration MigrationName
+
+Execute A Migration
+----------------------------
+Update-Database
+
+Get extra info on a command
+----------------------------
+Get-Help [Command] 
+
+Get extra info on a command (detailed
+----------------------------
+Get-Help [Command] -detailed
+
+If you recieve a "Could not load file or assembly 'Calpine.CABATS.Repository' or one of its dependencies. The system cannot find the file specified."
+----------------------------
+Make your .Repository Project the start up project and then retry
