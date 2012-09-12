@@ -1,7 +1,5 @@
 
 /packages
 /TestResults
-/Irving.Web/bin
-/Irving.Web/obj
-/Irving.Web.Tests/obj
-/Irving.Web.Tests/bin
+bin
+obj
