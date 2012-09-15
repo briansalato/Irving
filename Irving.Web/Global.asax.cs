@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Irving.Web.Attributes;
 
 namespace Irving.Web
 {
@@ -17,6 +18,7 @@ namespace Irving.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new CopyModelStateAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes)
