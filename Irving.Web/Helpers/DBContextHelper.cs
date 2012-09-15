@@ -6,7 +6,7 @@ namespace Irving.Web.Helpers
     {
         public static IIrvingDbContext GetIrvingDbContext()
         {
-            throw new NotImplementedException();
+            return new IrvingDbContext();
         }
     }
 }

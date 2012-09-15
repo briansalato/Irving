@@ -1,0 +1,53 @@
+﻿.button {
+    cursor: pointer;
+}
+
+@widgetBorder: 1px solid #ccc;
+.widget {
+    border-left: @widgetBorder;
+    padding: 5px;
+
+    .title {
+        border-bottom: @widgetBorder;
+        padding: 5px;
+
+        .button {
+            float: right;
+        }
+    }
+
+    .content {
+        padding: 5px;
+
+        ul {
+            list-style-type: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+    }
+}
+
+.widget.box {
+    border: @widgetBorder;
+    margin-bottom: 20px;
+}
+
+.contentSection {
+    width: 610px;
+    display:inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.rightBar {
+    width: 300px;
+    display:inline-block;
+    vertical-align: top;
+}
+
+.content-wrapper {
+    width: 960px;
+}
+.hidden {
+    display:none;
+}

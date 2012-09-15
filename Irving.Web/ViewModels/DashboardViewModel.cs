@@ -9,5 +9,6 @@ namespace Irving.Web.ViewModels
     public class DashboardViewModel
     {
         public IList<Asset> Assets { get; set; }
+        public IList<string> Alerts { get; set; }
     }
 }

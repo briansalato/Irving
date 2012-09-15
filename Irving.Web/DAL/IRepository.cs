@@ -10,5 +10,8 @@ namespace Irving.Web.DAL
     public interface IRepository<T> where T : DbModel
     {
         IList<T> Get(DbFilter filter);
+        void Add(T itemToCreate);
+
+        int SaveChanges();
     }
 }

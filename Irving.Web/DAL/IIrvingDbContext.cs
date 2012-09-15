@@ -9,8 +9,8 @@ namespace Irving.Web.DAL
     {
         IDbSet<Asset> Assets { get; set; }
 
-        //int SaveChanges();
-        //IDbSet<T> Set<T>() where T : Irving.Models.DbModel;
+        int SaveChanges();
+        IDbSet<T> Set<T>() where T : Irving.Web.Models.DbModel;
         //void ChangeObjectState(object entity, EntityState entityState);
         //void Detach(Irving.Models.DbModel item);
     }
