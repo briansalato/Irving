@@ -1,0 +1,16 @@
+﻿@model Irving.Web.Models.Asset
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Asset</h2>
+
+<form action="@Url.Asset_Create()" method="post">
+    <div class="row">
+        <label>@Html.LabelFor(m => m.Name)</label>
+        @Html.EditorFor(m => m.Name)
+    </div>
+        
+    <input type="submit" value="Add" />
+</form>

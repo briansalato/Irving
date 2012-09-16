@@ -6,6 +6,11 @@ namespace Irving.Web.Helpers
     [ExcludeFromCodeCoverage]
     public static class UrlHelperExtension
     {
+        public static string Dashboard(this UrlHelper helper)
+        {
+            return helper.Action("Dashboard", "Home");
+        }
+
         #region Account
         public static string Account_Register(this UrlHelper helper)
         {
@@ -18,6 +23,13 @@ namespace Irving.Web.Helpers
         }
         #endregion
 
+        #region Asset
+        public static string Asset_Create(this UrlHelper helper)
+        {
+            return helper.Action("Create", "Asset");
+        }
+        #endregion
+
         public static string Home(this UrlHelper helper)
         {
             return helper.Action("Index", "Home");
@@ -26,12 +38,12 @@ namespace Irving.Web.Helpers
         #region -Sitewide
         public static string Script(this UrlHelper helper, string fileName)
         {
-            return helper.Content("~/content/scripts/" + fileName);
+            return helper.Content("~/scripts/" + fileName);
         }
 
         public static string Stylesheet(this UrlHelper helper, string fileName)
         {
-            return helper.Content("~/content/styles/" + fileName);
+            return helper.Content("~/content/" + fileName);
         }
 
         public static string ThirdPartyContent(this UrlHelper helper, string fileName)

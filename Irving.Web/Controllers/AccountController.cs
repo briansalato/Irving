@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Irving.Web.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Irving.Web.Controllers
 {
     [Authorize]
+    [ExcludeFromCodeCoverage]
     public class AccountController : Controller
     {
 

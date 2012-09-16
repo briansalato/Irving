@@ -1,0 +1,48 @@
+﻿@model Irving.Web.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+@if (Model.Alerts != null
+    && Model.Alerts.Count > 0)
+{
+    <div class="widget box">
+        <ul>
+        @foreach (var alert in Model.Alerts)
+        {
+            <li>@alert</li>
+        }
+        </ul>
+    </div>
+}
+
+<div class="contentSection">
+    <div class="widget">
+        <div class="title">
+            Upcoming
+        </div>
+        <div class="content">
+            d
+        </div>
+    </div>
+</div>
+
+<div class="rightBar">
+    <div class="widget">
+        <div class="title">
+            Current Assets
+            <a class="button" href="@Url.Asset_Create()">+</a>
+        </div>
+        <div class="content">
+            <ul>
+            @foreach (var asset in Model.Assets)
+            {
+                <li>@asset.Name</li>   
+            }
+            </ul>
+        </div>
+    </div>
+</div>

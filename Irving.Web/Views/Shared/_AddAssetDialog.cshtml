@@ -1,0 +1,12 @@
+﻿@model Irving.Web.Models.Asset
+
+<div id="addAssetDialog" class="hidden">
+    <form action="@Url.Asset_Create()" method="post">
+        <div class="row">
+            <label>@Html.LabelFor(m => m.Name)</label>
+            @Html.EditorFor(m => m.Name)
+        </div>
+        
+        <input type="submit" value="Add" />
+    </form>
+</div>
