@@ -40,7 +40,7 @@
             <ul>
             @foreach (var asset in Model.Assets)
             {
-                <li>@asset.Name</li>   
+                <li><a href="@Url.Asset_Show(asset.Id)">@asset.Name</a></li>
             }
             </ul>
         </div>

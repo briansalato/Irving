@@ -28,6 +28,11 @@ namespace Irving.Web.Helpers
         {
             return helper.Action("Create", "Asset");
         }
+        
+        public static string Asset_Show(this UrlHelper helper, int id)
+        {
+            return helper.Action("Show", "Asset", new { id = id });
+        }
         #endregion
 
         public static string Home(this UrlHelper helper)

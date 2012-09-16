@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Irving.Web.Models
 {
-    public class Recurrence
+    public class Recurrence : DbModel
     {
         public RecurrenceType Type { get; set; }
         public int Amount { get; set; }

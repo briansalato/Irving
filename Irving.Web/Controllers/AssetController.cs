@@ -8,6 +8,7 @@ using Irving.Web.DAL;
 using System.Diagnostics.CodeAnalysis;
 using System.Web.Script.Serialization;
 using Irving.Web.Helpers;
+using Irving.Web.Filter;
 
 namespace Irving.Web.Controllers
 {
@@ -26,6 +27,20 @@ namespace Irving.Web.Controllers
             _assetRepo.Add(asset);
             _assetRepo.SaveChanges();
             return Redirect(Url.Dashboard());
+        }
+
+        [HttpGet]
+        public ActionResult Show(int id)
+        {
+            var filter = new DbFilter() { Id = id };
+            var asset = _assetRepo.Get(filter).FirstOrDefault();
+            if (asset == null)
+            {
+                this.AddFlashError(Keys.ASSET_NOT_FOUND, Messages.ASSET_NOT_FOUND);
+                return Redirect(Url.Dashboard());
+            }
+
+            return View(asset);
         }
 
         #region Constructors
