@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Irving.Web.Models;
 using Irving.Web.DAL;
+using Irving.Web.Models;
 using System.Diagnostics.CodeAnalysis;
-using System.Web.Script.Serialization;
-using Irving.Web.Helpers;
 using Irving.Web.Filter;
 
 namespace Irving.Web.Controllers
 {
-    public class AssetController : CRUDController<Asset>
+    public class AssetTypeController : CRUDController<AssetType>
     {
         #region Constructors
         [ExcludeFromCodeCoverage]
-        public AssetController() : this (new AssetRepository()) {}
+        public AssetTypeController() : this (new AssetTypeRepository()) { }
 
-        public AssetController(IRepository<Asset> assetRepo) :base(assetRepo) { }
+        public AssetTypeController(IRepository<AssetType> assetTypeRepo) : base(assetTypeRepo) { }
         #endregion
+
     }
 }

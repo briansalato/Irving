@@ -7,6 +7,7 @@ using Irving.Web.Filter;
 using System.Data.Entity;
 using Irving.Web.Helpers;
 using System.Diagnostics.CodeAnalysis;
+using System.Data;
 
 namespace Irving.Web.DAL
 {
@@ -17,9 +18,27 @@ namespace Irving.Web.DAL
             return GetFilterQuery(filter).ToList();
         }
 
+        public void Update(T itemToUpdate)
+        {
+            _dbSet.Attach(itemToUpdate);
+            _db.SetAsModified(itemToUpdate);
+        }
+
         public void Add(T itemToCreate)
         {
             _dbSet.Add(itemToCreate);
+        }
+
+        public bool Delete(int id)
+        {
+            var item = _dbSet.FirstOrDefault(i => i.Id == id);
+            if (item == null)
+            {
+                return false;
+            }
+
+            _dbSet.Remove(item);
+            return true;
         }
 
         public int SaveChanges()
@@ -35,7 +54,7 @@ namespace Irving.Web.DAL
 
         protected virtual IQueryable<T> GetFilterQuery(DbFilter filter)
         {
-            var queryable = GetIncludes();
+            var queryable = this.GetIncludes();
             if (filter != null)
             {
                 if (filter.Id.HasValue)

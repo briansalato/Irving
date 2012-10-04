@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Web.Mvc;
+using Irving.Web.Models;
 
 namespace Irving.Web.Helpers
 {
@@ -23,15 +24,47 @@ namespace Irving.Web.Helpers
         }
         #endregion
 
-        #region Asset
-        public static string Asset_Create(this UrlHelper helper)
+        #region Admin
+        public static string Admin_Panel(this UrlHelper helper)
         {
-            return helper.Action("Create", "Asset");
+            return helper.Action("Index", "Asset");
         }
-        
-        public static string Asset_Show(this UrlHelper helper, int id)
+        #endregion
+
+        #region CRUD
+        public static string List<T>(this UrlHelper helper)
         {
-            return helper.Action("Show", "Asset", new { id = id });
+            return helper.Action("List", ReflectionHelper.GetClassName<T>());
+        }
+
+        public static string Create<T>(this UrlHelper helper)
+        {
+            return helper.Action("Create", ReflectionHelper.GetClassName<T>());
+        }
+
+        public static string Edit<T>(this UrlHelper helper, int id)
+        {
+            return helper.Action("Edit", ReflectionHelper.GetClassName<T>(), new { id = id });
+        }
+
+        public static string Edit<T>(this UrlHelper helper, T item) where T : DbModel
+        {
+            return helper.Action("Edit", ReflectionHelper.GetClassName<T>(), new { id = item.Id });
+        }
+
+        public static string Show<T>(this UrlHelper helper, int id)
+        {
+            return helper.Action("Show", ReflectionHelper.GetClassName<T>(), new { id = id });
+        }
+
+        public static string Show<T>(this UrlHelper helper, T item) where T : DbModel
+        {
+            return helper.Action("Show", ReflectionHelper.GetClassName<T>(), new { id = item.Id });
+        }
+
+        public static string DeletePost<T>(this UrlHelper helper)
+        {
+            return helper.Action("Delete", ReflectionHelper.GetClassName<T>());
         }
         #endregion
 

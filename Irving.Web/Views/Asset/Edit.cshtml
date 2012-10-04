@@ -1,14 +1,14 @@
 ﻿@model Irving.Web.Models.Asset
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
-<h2>Create Asset</h2>
+<h2>Edit Asset</h2>
 
 @using (Html.BeginForm())
 {
     @Html.Partial("_EditFields", Model)
         
-    <input type="submit" value="Add" />
+    <input type="submit" value="Save" />
 }

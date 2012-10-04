@@ -8,6 +8,7 @@
         <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/themes/base/css")" rel="stylesheet" type="text/css" />
         <script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
         <script src="@Url.Script("dashboard.js")"></script>
+        <script src="@Url.Script("dbCrud.js")"></script>
         <link href="@Url.Stylesheet("site.less")" rel="stylesheet" type="text/css" />
         <meta name="viewport" content="width=device-width" />
     </head>
@@ -26,6 +27,7 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                         </ul>
                     </nav>
                 </div>

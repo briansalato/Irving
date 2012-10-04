@@ -1,5 +1,14 @@
-﻿public static class Keys
+﻿using Irving.Web.Models;
+
+namespace Irving.Web.Helpers
 {
-    public const string ASSET_NOT_FOUND = "AssetNotFound";
-    //public const string THING_DELETED = "ThingDeleted";
+    public static class Keys
+    {
+        //public const string THING_DELETED = "ThingDeleted";
+
+        public static string NotFound<T>()
+        {
+            return ReflectionHelper.GetClassName<T>() + "NotFound";
+        }
+    }
 }

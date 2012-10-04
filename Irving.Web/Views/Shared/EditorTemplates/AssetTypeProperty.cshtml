@@ -1,0 +1,6 @@
+﻿@model Irving.Web.Models.AssetTypeProperty
+
+@Html.TextBoxFor(m => m.Name)
+@Html.DropDownListFor(m => m.PropertyType, DropDownOptions.PropertyTypes)
+
+@Html.HiddenFor(m => m.Id)

@@ -1,0 +1,8 @@
+﻿@model Irving.Web.Models.Asset
+
+<div class="row">
+    <label>@Html.LabelFor(m => m.Name)</label>
+    @Html.EditorFor(m => m.Name)
+</div>
+
+@Html.HiddenFor(m => m.Id)

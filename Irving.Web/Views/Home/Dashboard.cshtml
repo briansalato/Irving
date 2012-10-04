@@ -34,13 +34,13 @@
     <div class="widget">
         <div class="title">
             Current Assets
-            <a class="button" href="@Url.Asset_Create()">+</a>
+            <a class="button" href="@(Url.Create<Asset>())">+</a>
         </div>
         <div class="content">
             <ul>
             @foreach (var asset in Model.Assets)
             {
-                <li><a href="@Url.Asset_Show(asset.Id)">@asset.Name</a></li>
+                <li><a href="@(Url.Show(asset))">@asset.Name</a></li>
             }
             </ul>
         </div>

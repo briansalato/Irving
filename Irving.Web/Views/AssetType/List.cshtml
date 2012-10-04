@@ -1,0 +1,15 @@
+﻿@model List<AssetType>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Asset Types</h2>
+<a class="button" href="@(Url.Create<AssetType>())">Add</a>
+
+<ul>
+@foreach(var assetType in Model) 
+{
+    <li><a href="@Url.Show(assetType)">@assetType.Name</a></li>
+}
+</ul>
