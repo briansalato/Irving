@@ -19,6 +19,20 @@
             @Html.DisplayFor(m => m.Name)
         </div>
     </div>
+
+    <div class="row">
+        <div class="label">
+            @Html.LabelFor(m => m.Properties)
+        </div>
+        <div class="">
+            <ul>
+                @foreach (var property in Model.Properties)
+                {
+                    <li>@property.Name - @property.PropertyType</li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
 
 <a href="@Url.Dashboard()">Back</a>

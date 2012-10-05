@@ -222,6 +222,7 @@
     <Content Include="DAL\Migration Notes.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\collectionManager.js" />
     <Content Include="Scripts\dbCrud.js" />
     <Content Include="Scripts\dashboard.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
@@ -306,16 +307,16 @@
     <Content Include="Views\Shared\_AddAssetDialog.cshtml" />
     <Content Include="Views\Asset\Show.cshtml" />
     <Content Include="Views\Asset\Edit.cshtml" />
-    <Content Include="Views\Asset\_EditFields.cshtml" />
     <Content Include="Views\Asset\_ConfirmDelete.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\AssetType\List.cshtml" />
     <Content Include="Views\AssetType\Create.cshtml" />
-    <Content Include="Views\AssetType\_EditFields.cshtml" />
     <Content Include="Views\AssetType\Edit.cshtml" />
     <Content Include="Views\AssetType\Show.cshtml" />
     <Content Include="Views\AssetType\_ConfirmDelete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AssetTypeProperty.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Asset.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AssetType.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

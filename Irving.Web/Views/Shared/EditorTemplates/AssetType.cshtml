@@ -10,21 +10,16 @@
         <label>@Html.LabelFor(m => m.Properties)</label>
     </div>
     <div id="propertiesHolder">
-        @foreach (var property in Model.Properties)
+        @for (int i = 0; i < Model.Properties.Count; i++)
         {
             <div>
-                @Html.EditorFor(m => property)
+                @Html.EditorFor(m => Model.Properties[i])
             </div>
         }
     </div>
     <div>
-        <a href="#" onclick="Irving.AssetType.addProperty()">+</a>
+        <a href="#" onclick="Irving.CollectionManager.addItem('propertiesHolder')">+</a>
     </div>
-</div>
-
-<input type="hidden" id="numProperties" value="@Model.Properties.Count" />
-<div class="hidden">
-    @Html.Partial("EditorTemplates/AssetTypeProperty", new AssetTypeProperty() { Id = -1 }, new { blankOutData = true })
 </div>
 
 @Html.HiddenFor(m => m.Id)
