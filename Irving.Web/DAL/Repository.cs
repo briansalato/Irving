@@ -21,12 +21,14 @@ namespace Irving.Web.DAL
         public void Update(T itemToUpdate)
         {
             _dbSet.Attach(itemToUpdate);
+            AddOrUpdateChildren(itemToUpdate);
             _db.SetAsModified(itemToUpdate);
         }
 
         public void Add(T itemToCreate)
         {
             _dbSet.Add(itemToCreate);
+            AddOrUpdateChildren(itemToCreate);
         }
 
         public bool Delete(int id)
@@ -65,13 +67,18 @@ namespace Irving.Web.DAL
 
             return queryable;
         }
+
+        protected virtual void AddOrUpdateChildren(T itemToModify)
+        {
+            //this is just for overriding, and does nothing in the base
+        }
         #endregion
         
         #region Constructors
         [ExcludeFromCodeCoverage]
         public Repository()
         {
-            Init(DBContextHelper.GetIrvingDbContext());
+            Init(DBContextHelper.GetDataContext("Irving"));
         }
 
         public Repository(IIrvingDbContext dbContext)

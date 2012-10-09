@@ -2,5 +2,6 @@
 
 @Html.TextBoxFor(m => m.Name)
 @Html.DropDownListFor(m => m.PropertyType, DropDownOptions.PropertyTypes)
+<a href="#" onclick="Irving.CollectionManager.deleteItem(this)">Delete</a>
 
 @Html.HiddenFor(m => m.Id)

@@ -8,7 +8,6 @@ namespace Irving.Web.Models
 {
     public abstract class DbModel
     {
-        [Key]
         public int Id { get; set; }
     }
 }

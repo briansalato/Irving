@@ -12,5 +12,10 @@ namespace Irving.Web.Models
         public string Name { get; set; }
 
         public List<AssetTypeProperty> Properties { get; set; }
+
+        public AssetType()
+        {
+            Properties = new List<AssetTypeProperty>();
+        }
     }
 }

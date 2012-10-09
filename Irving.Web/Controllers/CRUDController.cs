@@ -21,11 +21,11 @@ namespace Irving.Web.Controllers
         }
 
         [HttpPost]
-        public virtual RedirectResult Create(T model)
+        public virtual ActionResult Create(T model)
         {
             if (!ModelState.IsValid)
             {
-                return Redirect(Url.Create<T>());
+                return View(model);
             }
             _modelRepo.Add(model);
             _modelRepo.SaveChanges();
@@ -37,6 +37,7 @@ namespace Irving.Web.Controllers
         {
             var filter = new DbFilter() { Id = id };
             var model = _modelRepo.Get(filter).FirstOrDefault();
+            
             if (model == null)
             {
                 this.AddFlashError(Keys.NotFound<T>(), Messages.NotFound<T>());
@@ -47,15 +48,14 @@ namespace Irving.Web.Controllers
         }
 
         [HttpPost]
-        public virtual RedirectResult Edit(T model)
+        public virtual ActionResult Edit(T model)
         {
             if (!ModelState.IsValid)
             {
-                return Redirect(Url.Edit(model));
+                return View(model);
             }
             _modelRepo.Update(model);
             _modelRepo.SaveChanges();
-            var result = _modelRepo.Get(new DbFilter() { Id = model.Id });
             return Redirect(Url.Show(model));
         }
 

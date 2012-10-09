@@ -137,6 +137,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\AssetRepository.cs" />
     <Compile Include="DAL\AssetTypeRepository.cs" />
+    <Compile Include="DAL\AssetTypePropertyRepository.cs" />
     <Compile Include="DAL\IIrvingDbContext.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IrvingDbContext.cs" />

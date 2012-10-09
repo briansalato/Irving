@@ -37,6 +37,7 @@
         <div id="body">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
+                @Html.ValidationSummary()
                 @RenderBody()
             </section>
         </div>

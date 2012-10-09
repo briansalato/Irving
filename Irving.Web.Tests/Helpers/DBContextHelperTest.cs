@@ -17,7 +17,7 @@ namespace Irving.Web.Tests.Helpers
             //arrange
 
             //act
-            var result = DBContextHelper.GetIrvingDbContext();
+            var result = DBContextHelper.GetDataContext("Irving");
 
             //assert
             Assert.AreEqual(typeof(IrvingDbContext), result.GetType());

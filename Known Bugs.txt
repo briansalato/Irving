@@ -1,0 +1,1 @@
+1. Edit/Create Asset Type. If there is an error when you add a property, when the page reloads it deletes all added properties. It also doesn't client side validatie the new items added
