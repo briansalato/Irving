@@ -1,8 +1,13 @@
 ﻿@model Irving.Web.Models.Asset
 
 <div class="row">
-    <label>@Html.LabelFor(m => m.Name)</label>
+    @Html.LabelFor(m => m.Name)
     @Html.EditorFor(m => m.Name)
+</div>
+
+<div class="row">
+    @Html.LabelFor(m => m.ParentId)
+    @Html.DropDownListFor(m => m.ParentId, (IEnumerable<SelectListItem>)ViewBag.AvailableParentAssets, string.Empty)
 </div>
 
 @Html.HiddenFor(m => m.Id)

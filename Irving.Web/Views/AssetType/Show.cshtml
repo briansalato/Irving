@@ -28,11 +28,11 @@
             <ul>
                 @foreach (var property in Model.Properties)
                 {
-                    <li>@property.Name - @property.PropertyType</li>
+                    <li>@property.Name - @property.PropertyTypeEnum.GetDescription()</li>
                 }
             </ul>
         </div>
     </div>
 </div>
 
-<a href="@Url.Dashboard()">Back</a>
+<a href="@(Url.List<AssetType>())">Back</a>

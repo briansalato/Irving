@@ -4,7 +4,9 @@ namespace Irving.Web.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     internal sealed class Configuration : DbMigrationsConfiguration<Irving.Web.DAL.IrvingDbContext>
     {
         public Configuration()

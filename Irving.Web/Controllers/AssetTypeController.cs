@@ -16,6 +16,7 @@ namespace Irving.Web.Controllers
         [ExcludeFromCodeCoverage]
         public AssetTypeController() : this (new AssetTypeRepository()) { }
 
+        [ExcludeFromCodeCoverage]
         public AssetTypeController(IRepository<AssetType> assetTypeRepo) : base(assetTypeRepo) { }
         #endregion
 

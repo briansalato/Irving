@@ -8,69 +8,75 @@ using Irving.Web.Filter;
 using System.Diagnostics.CodeAnalysis;
 using Irving.Web.DAL;
 using Irving.Web.Helpers;
+using Irving.Web.Attributes;
 
 namespace Irving.Web.Controllers
 {
     public abstract class CRUDController<T> : Controller where T : DbModel, new()
     {
+        //we are using the view names here so that inherited classes can still call up and it will return the correct view even if the inherited method has a 
+        //different signature
+        protected const string _createViewName = "Create";
+        protected const string _editViewName = "Edit";
+        protected const string _showViewName = "Show";
+        protected const string _listViewName = "List";
+
         [HttpGet]
         public virtual ActionResult Create()
         {
-            var model = new T();
-            return View(model);
+            var viewModel = SetupCreateViewModel();
+            return View(_createViewName, viewModel);
         }
 
         [HttpPost]
-        public virtual ActionResult Create(T model)
+        public virtual ActionResult Create(T modelToCreate)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Create();
             }
-            _modelRepo.Add(model);
+            _modelRepo.Add(modelToCreate);
             _modelRepo.SaveChanges();
-            return Redirect(Url.Show(model));
+            return Redirect(Url.Show(modelToCreate));
         }
 
         [HttpGet]
         public virtual ActionResult Edit(int id)
         {
-            var filter = new DbFilter() { Id = id };
-            var model = _modelRepo.Get(filter).FirstOrDefault();
+            var viewModel = SetupEditViewModel(id);
             
+            if (viewModel == null)
+            {
+                this.AddFlashError(Keys.NotFound<T>(), Messages.NotFound<T>());
+                return Redirect(Url.List<T>());
+            }
+
+            return View(_editViewName, viewModel);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Edit(T modelToUpdate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Edit(modelToUpdate.Id);
+            }
+            _modelRepo.Update(modelToUpdate);
+            _modelRepo.SaveChanges();
+            return Redirect(Url.Show(modelToUpdate));
+        }
+
+        [HttpGet]
+        public virtual ActionResult Show(int id)
+        {
+            var model = SetupShowViewModel(id);
             if (model == null)
             {
                 this.AddFlashError(Keys.NotFound<T>(), Messages.NotFound<T>());
                 return Redirect(Url.List<T>());
             }
 
-            return View(model);
-        }
-
-        [HttpPost]
-        public virtual ActionResult Edit(T model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            _modelRepo.Update(model);
-            _modelRepo.SaveChanges();
-            return Redirect(Url.Show(model));
-        }
-
-        [HttpGet]
-        public virtual ActionResult Show(int id)
-        {
-            var filter = new DbFilter() { Id = id };
-            var model = _modelRepo.Get(filter).FirstOrDefault();
-            if (model == null)
-            {
-                this.AddFlashError(Keys.NotFound<T>(), Messages.NotFound<T>());
-                return Redirect(Url.Dashboard());
-            }
-
-            return View(model);
+            return View(_showViewName, model);
         }
 
         [HttpPost]
@@ -91,9 +97,25 @@ namespace Irving.Web.Controllers
         public virtual ActionResult List()
         {
             var models = _modelRepo.Get(new DbFilter());
-            return View(models);
+            return View(_listViewName, models);
         }
-        
+
+        #region Protected Methods
+        protected virtual object SetupShowViewModel(int id)
+        {
+            return _modelRepo.GetById(id);
+        }
+
+        protected virtual object SetupCreateViewModel()
+        {
+            return new T();
+        }
+
+        protected virtual object SetupEditViewModel(int id)
+        {
+            return _modelRepo.GetById(id);
+        }
+        #endregion
 
         #region Constructors
         public CRUDController(IRepository<T> modelRepo) 
@@ -103,7 +125,7 @@ namespace Irving.Web.Controllers
         #endregion
 
         #region Variables
-        private IRepository<T> _modelRepo { get; set; }
+        protected IRepository<T> _modelRepo { get; set; }
         #endregion
     }
 }

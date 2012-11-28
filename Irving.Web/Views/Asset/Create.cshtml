@@ -1,14 +1,15 @@
-﻿@model Irving.Web.Models.Asset
+﻿@model Irving.Web.ViewModels.CreateAssetViewModel
 
 @{
     ViewBag.Title = "Create";
+    ViewBag.AvailableParentAssets = Model.AvailableParentAssets;
 }
 
 <h2>Create Asset</h2>
 
 @using (Html.BeginForm())
-{
-    @Html.EditorFor(Model)
+{   
+    @Html.EditorFor(model => model.Asset)
         
     <input type="submit" value="Add" />
 }

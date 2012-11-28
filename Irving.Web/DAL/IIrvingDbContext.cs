@@ -7,14 +7,14 @@ namespace Irving.Web.DAL
 {
     public interface IIrvingDbContext : IDisposable, IObjectContextAdapter
     {
+        IDbSet<Car> Cars { get; set; }
         IDbSet<Asset> Assets { get; set; }
-        IDbSet<AssetType> AssetTypes { get; set; }
-        IDbSet<AssetTypeProperty> AssetTypeProperties { get; set; }
 
         int SaveChanges();
         IDbSet<T> Set<T>() where T : Irving.Web.Models.DbModel;
-        void SetAsModified<T>(T model) where T : Irving.Web.Models.DbModel;
-        //void ChangeObjectState(object entity, EntityState entityState);
-        //void Detach(Irving.Models.DbModel item);
+        void SetAsModified<T>(T model) where T : Models.DbModel;
+        bool IsAdded(Models.DbModel model);
+        void Detach(Models.DbModel model);
+        void AttachOrUpdate<T>(T model) where T : Models.DbModel;
     }
 }

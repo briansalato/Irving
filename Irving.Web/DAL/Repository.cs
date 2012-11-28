@@ -13,6 +13,11 @@ namespace Irving.Web.DAL
 {
     public abstract class Repository<T> : IRepository<T> where T : DbModel
     {
+        public T GetById(int id)
+        {
+            return Get(new DbFilter() { Id = id }).FirstOrDefault();
+        }
+
         public IList<T> Get(DbFilter filter)
         {
             return GetFilterQuery(filter).ToList();
@@ -20,20 +25,25 @@ namespace Irving.Web.DAL
 
         public void Update(T itemToUpdate)
         {
-            _dbSet.Attach(itemToUpdate);
-            AddOrUpdateChildren(itemToUpdate);
+            UpdateChildren(itemToUpdate);
+            _db.AttachOrUpdate(itemToUpdate);
             _db.SetAsModified(itemToUpdate);
         }
 
         public void Add(T itemToCreate)
         {
+            AddChildren(itemToCreate);
             _dbSet.Add(itemToCreate);
-            AddOrUpdateChildren(itemToCreate);
+        }
+
+        public void Detach(T item)
+        {
+            _db.Detach(item);
         }
 
         public bool Delete(int id)
         {
-            var item = _dbSet.FirstOrDefault(i => i.Id == id);
+            var item = GetById(id);
             if (item == null)
             {
                 return false;
@@ -68,7 +78,12 @@ namespace Irving.Web.DAL
             return queryable;
         }
 
-        protected virtual void AddOrUpdateChildren(T itemToModify)
+        protected virtual void AddChildren(T itemToAdd)
+        {
+            //this is just for overriding, and does nothing in the base
+        }
+
+        protected virtual void UpdateChildren(T itemToModify)
         {
             //this is just for overriding, and does nothing in the base
         }

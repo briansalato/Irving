@@ -27,7 +27,7 @@ namespace Irving.Web.Helpers
         #region Admin
         public static string Admin_Panel(this UrlHelper helper)
         {
-            return helper.Action("Index", "Asset");
+            return helper.Action("Index", "Admin");
         }
         #endregion
 
@@ -70,7 +70,7 @@ namespace Irving.Web.Helpers
 
         public static string Home(this UrlHelper helper)
         {
-            return helper.Action("Index", "Home");
+            return helper.Action("Dashboard", "Home");
         }
 
         #region -Sitewide

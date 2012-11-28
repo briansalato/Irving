@@ -1,0 +1,17 @@
+﻿@model Irving.Web.Models.Note
+
+<div id="addNoteDialog" class="hidden modal" title="Add Note">
+    <div class="row">
+        @Html.LabelFor(m => m.Title)
+        @Html.EditorFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Date, new { @class="date" })
+    </div>
+
+    <div class="row">
+        @Html.LabelFor(m => m.Text)
+        @Html.TextAreaFor(m => m.Text)
+    </div>
+
+    <input type="button" onclick="Irving.Asset.addNote()" value="Add" />
+    <input type="button" onclick="Irving.Asset.hideAddNote()" value="Cancel" />
+</div>

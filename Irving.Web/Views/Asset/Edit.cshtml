@@ -1,14 +1,15 @@
-﻿@model Irving.Web.Models.Asset
+﻿@model Irving.Web.ViewModels.EditAssetViewModel
 
 @{
     ViewBag.Title = "Edit";
+    ViewBag.AvailableParentAssets = Model.AvailableParentAssets;
 }
 
 <h2>Edit Asset</h2>
 
 @using (Html.BeginForm())
 {
-    @Html.EditorFor(Model)
+    @Html.EditorFor(model => model.Asset)
         
     <input type="submit" value="Save" />
 }

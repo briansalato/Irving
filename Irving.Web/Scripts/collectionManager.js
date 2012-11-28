@@ -6,26 +6,32 @@ Irving.CollectionManager = Irving.CollectionManager || {};
 Irving.CollectionManager.addItem = function (collectionId) {
     var collection = $('#' + collectionId);
     var lastRow = collection.children().last();
+    if (lastRow.is(":hidden")) {
+        lastRow.show();
+    } else {
+        var newRow = lastRow.clone(true);
+        collection.append(newRow);
+        var elements = newRow.children();
+        var number = Irving.CollectionManager.number(elements.first().attr('name')) + 1;
+        $.each(elements, function () {
+            var tagName = this.tagName.toLowerCase();
+            if (tagName == 'input' || tagName == 'select') {
+                this.name = Irving.CollectionManager.namePrefix(this.name) +
+                            number +
+                            Irving.CollectionManager.namePostfix(this.name);
 
-    var newRow = lastRow.clone(true);
-    collection.append(newRow);
-    var elements = newRow.children();
-    var number = Irving.CollectionManager.number(elements.first().attr('name')) + 1;
+                this.id = Irving.CollectionManager.idPrefix(this.id) +
+                         number +
+                         Irving.CollectionManager.idPostfix(this.id);
 
-    $.each(elements, function () {
-        var tagName = this.tagName.toLowerCase();
-        if (tagName == 'input' || tagName == 'select') {
-            this.name = Irving.CollectionManager.namePrefix(this.name) +
-                        number +
-                        Irving.CollectionManager.namePostfix(this.name);
-
-            this.id = Irving.CollectionManager.idPrefix(this.id) +
-                     number +
-                     Irving.CollectionManager.idPostfix(this.id);
-
-            $(this).val(this.name.indexOf('.Id') > -1 ? '0' : '');
-        }
-    });
+                $(this).val(this.name.indexOf('.Id') > -1 ? '0' : '');
+            }
+            if (this.classList.contains('date')) {
+                //recreate the datepicker so it isnt attached to the other input
+                $(this).datepicker('destroy').datepicker();
+            }
+        });
+    }
 };
 
 Irving.CollectionManager.deleteItem = function (deleteButton) {

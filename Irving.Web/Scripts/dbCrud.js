@@ -16,3 +16,7 @@ Irving.AssetType.addProperty = function () {
     var number = $('#numProperties').val();
     $('#propertiesHolder').append('<div><input type="text" name="Properties[' + number + ']" /><</div>');
 };
+
+$(function () {
+    $(".date").datepicker();
+});

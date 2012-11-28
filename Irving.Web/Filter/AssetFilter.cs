@@ -9,5 +9,6 @@ namespace Irving.Web.Filter
     public class AssetFilter : DbFilter
     {
         public User User { get; set; }
+        public bool? NoChildren { get; set; }
     }
 }

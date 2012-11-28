@@ -40,7 +40,7 @@ namespace Irving.Web.Tests.DAL
             var results = _repo.Get(filter);
 
             //assert
-            AssertHelper.EnumerableEqual(fakeBaseModels, results, "All items should have been returned");
+            TestHelper.EnumerableEqual(fakeBaseModels, results, "All items should have been returned");
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace Irving.Web.Tests.DAL
             var results = _repo.Get(filter);
 
             //assert
-            AssertHelper.EnumerableEqual(fakeBaseModels, results, "All items should have been returned");
+            TestHelper.EnumerableEqual(fakeBaseModels, results, "All items should have been returned");
         }
 
         [TestMethod]
@@ -85,6 +85,140 @@ namespace Irving.Web.Tests.DAL
             //assert
             Assert.AreEqual(1, result.Count, "The should have been one result returned");
             Assert.AreEqual(5, result.Single().Id, "The returned result should have been Id=5");
+        }
+        #endregion
+
+        #region GetById
+        [TestMethod]
+        public void GetById_When_Item_Found()
+        {
+            //arrange
+            var id = 5;
+            var fakeBaseModels = new List<ConcreateBaseModel>()
+                           {
+                               new ConcreateBaseModel() { Id = 1 },
+                               new ConcreateBaseModel() { Id = 5 },
+                               new ConcreateBaseModel() { Id = 6 },
+                           };
+            _dbSet.SetData(fakeBaseModels);
+
+            //act
+            var result = _repo.GetById(id);
+
+            //assert
+            Assert.AreEqual(5, result.Id, "The returned result should have been Id=5");
+        }
+
+        [TestMethod]
+        public void GetById_When_No_Item_Found()
+        {
+            //arrange
+            var id = 5;
+            var fakeBaseModels = new List<ConcreateBaseModel>()
+                           {
+                               new ConcreateBaseModel() { Id = 1 },
+                               new ConcreateBaseModel() { Id = 6 },
+                           };
+            _dbSet.SetData(fakeBaseModels);
+
+            //act
+            var result = _repo.GetById(id);
+
+            //assert
+            Assert.IsNull(result, "The result should have been null since there was no item");
+        }
+        #endregion
+
+        #region Delete
+        [TestMethod]
+        public void Delete_When_Item_Exists()
+        {
+            //arrange
+            var id = 5;
+            var fakeBaseModels = new List<ConcreateBaseModel>()
+                           {
+                               new ConcreateBaseModel() { Id = 1 },
+                               new ConcreateBaseModel() { Id = 5 },
+                               new ConcreateBaseModel() { Id = 6 },
+                           };
+            _dbSet.SetData(fakeBaseModels);
+            
+            //act
+            var result = _repo.Delete(id);
+
+            //assert
+            Assert.IsFalse(fakeBaseModels.Any(item => item.Id == id), "The item was not removed from the set of data");
+            Assert.AreEqual(2, fakeBaseModels.Count, "More than one item was removed from the set of data");
+            Assert.IsTrue(result, "The result should be true when it is deleted");
+        }
+
+        [TestMethod]
+        public void Delete_When_Item_Doesnt_Exist()
+        {
+            //arrange
+            var id = 5;
+            var fakeBaseModels = new List<ConcreateBaseModel>()
+                           {
+                               new ConcreateBaseModel() { Id = 1 },
+                               new ConcreateBaseModel() { Id = 6 }
+                           };
+            _dbSet.SetData(fakeBaseModels);
+
+            //act
+            var result = _repo.Delete(id);
+
+            //assert
+            Assert.AreEqual(2, fakeBaseModels.Count, "No item should have been removed from the set of data since none were found");
+            Assert.IsFalse(result, "The result should be false when no item is deleted");
+        }
+        #endregion
+
+        #region Add
+        [TestMethod]
+        public void Add_As_Success()
+        {
+            //arrange
+            var itemToCreate = new ConcreateBaseModel();
+
+            var fakeBaseModels = new List<ConcreateBaseModel>();
+            _dbSet.SetData(fakeBaseModels);
+
+            //act
+            _repo.Add(itemToCreate);
+
+            //assert
+            Assert.AreNotEqual(0, itemToCreate.Id, "The item should have an Id");
+            Assert.AreEqual(1, fakeBaseModels.Count, "The item should have been added to the list");
+        }
+        #endregion
+
+        #region Update
+        [TestMethod]
+        public void Update_As_Success()
+        {
+            //arrange
+            var itemToUpdate = new ConcreateBaseModel() { Id = 5 };
+
+            //act
+            _repo.Update(itemToUpdate);
+
+            //assert
+            _mockDb.Verify(m => m.AttachOrUpdate(itemToUpdate), Times.Once(), "The item needs to be attached to the context");
+            _mockDb.Verify(m => m.SetAsModified(itemToUpdate), Times.Once(), "The item needs to be set to modified so it will save");
+        }
+        #endregion
+
+        #region SaveChanges
+        [TestMethod]
+        public void SaveChanges_Calls_DB_Save()
+        {
+            //arrange
+
+            //act
+            _repo.SaveChanges();
+
+            //assert
+            _mockDb.Verify(m => m.SaveChanges(), Times.Once(), "The database's save method was not called");
         }
         #endregion
 

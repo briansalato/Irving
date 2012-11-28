@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using Irving.Web.Models;
 using System.Data.Entity;
+using Irving.Web.Helpers;
+using Irving.Web.Filter;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Irving.Web.DAL
 {
@@ -15,30 +18,33 @@ namespace Irving.Web.DAL
                          .AsQueryable();
         }
 
-        protected override void AddOrUpdateChildren(AssetType itemToModify)
+        protected override void AddChildren(AssetType itemToAdd)
         {
-            base.AddOrUpdateChildren(itemToModify);
-            foreach(var property in itemToModify.Properties) 
+            foreach (var item in itemToAdd.Properties)
             {
-                if (property.Id <= 0) 
-                {
-                    _assetTypePropertyRepo.Add(property);
-                }
-                else 
-                {
-                    _assetTypePropertyRepo.Update(property);
-                    _db.SetAsModified(property);
-                }
+                _assetTypePropertyRepo.Add(item);
             }
         }
 
+        protected override void AddUpdateDeleteChildren(AssetType itemToModify)
+        {
+            var dbItem = base.GetById(itemToModify.Id);
+            //we call to list so that it will make a copy. If we dont make a copy then it will delete the list on detach
+            var oldItems = dbItem.Properties.ToList();
+            //we have to detach so that when we attach on the next step it doesnt think there are duplicates
+            _db.Detach(dbItem);
+            HelperFactory.DataHelper.DoAddUpdateDelete(_assetTypePropertyRepo, oldItems, itemToModify.Properties);
+        }
+
         #region Constructors
+        [ExcludeFromCodeCoverage]
         public AssetTypeRepository()
         {
             _assetTypePropertyRepo = new AssetTypePropertyRepository();
         }
 
-        public AssetTypeRepository(IRepository<AssetTypeProperty> assetTypePropertyRepo)
+        public AssetTypeRepository(IIrvingDbContext dbContext, IRepository<AssetTypeProperty> assetTypePropertyRepo)
+            :base (dbContext)
         {
             _assetTypePropertyRepo = assetTypePropertyRepo;
         }

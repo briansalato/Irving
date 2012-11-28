@@ -4,8 +4,34 @@
     ViewBag.Title = "Dashboard";
 }
 
-<h2>Dashboard</h2>
+<h2>Current Assets</h2>
+<a class="button" href="@(Url.Create<Asset>())">+</a>
+<div class="dashboard">
+    <ul>
+        @foreach (var asset in Model.Assets)
+        {
+            <li>
+                <span>
+                    <img />
+                </span>
+                <span>
+                    <div>
+                        <a href="@Url.Show(asset)">@asset.Name</a>
+                    </div>
+                    <div>
+                    
+                    </div>
+                    <div>
+                    
+                    </div>
+                </span>
+                
+            </li>
+        }
+    </ul>
+</div>
 
+@*
 @if (Model.Alerts != null
     && Model.Alerts.Count > 0)
 {
@@ -31,18 +57,20 @@
 </div>
 
 <div class="rightBar">
+
     <div class="widget">
         <div class="title">
-            Current Assets
-            <a class="button" href="@(Url.Create<Asset>())">+</a>
+            Current Cars
+            <a class="button" href="@(Url.Create<Car>())">+</a>
         </div>
         <div class="content">
             <ul>
-            @foreach (var asset in Model.Assets)
-            {
-                <li><a href="@(Url.Show(asset))">@asset.Name</a></li>
-            }
+                @foreach (var car in Model.Cars)
+                {
+                    <li><a href="@Url.Show(car)">@car.Name</a></li>
+                }
             </ul>
         </div>
     </div>
 </div>
+*@

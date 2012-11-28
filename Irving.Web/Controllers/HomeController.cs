@@ -40,13 +40,10 @@ namespace Irving.Web.Controllers
         [HttpGet]
         public ActionResult Dashboard()
         {
-            var assetFilter = new AssetFilter()
-            {
-                User = CurrentUser
-            };
+            var carFilter = new CarFilter();
             var viewModel = new DashboardViewModel()
             {
-                Assets = _assetRepo.Get(assetFilter),
+                Assets = _assetRepo.Get(carFilter)
             };
 
             return View(viewModel);
@@ -55,18 +52,18 @@ namespace Irving.Web.Controllers
         #region Constructors
         [ExcludeFromCodeCoverage]
         public HomeController()
-            : this (new AssetRepository())
         {
+            _assetRepo = new AssetRepository();
         }
 
-        public HomeController(IRepository<Asset> assetRepo) 
+        public HomeController(IRepository<Asset> assetRepo)
         {
             _assetRepo = assetRepo;
         }
         #endregion
 
         #region Variables
-        private IRepository<Asset> _assetRepo { get; set; }
+        private IRepository<Asset> _assetRepo;
         #endregion
     }
 }

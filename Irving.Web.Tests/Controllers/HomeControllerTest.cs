@@ -24,8 +24,8 @@ namespace Irving.Web.Tests.Controllers
             var user = new User();
             var assets = new List<Asset>();
             var mockAssetRepo = new Mock<IRepository<Asset>>();
-            mockAssetRepo.Setup(m => m.Get(It.Is<AssetFilter>(filter => filter.User == user)))
-                         .Returns(assets);
+            mockAssetRepo.Setup(m => m.Get(It.Is<DbFilter>(f => f.Id.HasValue == false)))
+                       .Returns(assets);
 
             var controller = new HomeController(mockAssetRepo.Object);
             controller.CurrentUser = user;
@@ -41,7 +41,7 @@ namespace Irving.Web.Tests.Controllers
             var model = result.Model as DashboardViewModel;
             Assert.IsNotNull(result, "The view model type should have been a DashboardViewModel");
 
-            Assert.AreEqual(assets, model.Assets, "The assets passed in were not the same as the business layer's");
+            Assert.AreEqual(assets, model.Assets, "The cars passed in whas not correct");
         }
     }
 }

@@ -1,0 +1,66 @@
+﻿@model Irving.Web.Models.Car
+
+<div class="row">
+    <label>@Html.LabelFor(m => m.Name)</label>
+    @Html.EditorFor(m => m.Name)
+    @Html.ValidationMessageFor(m => m.Name)
+</div>
+<div class="row">
+    <label>@Html.LabelFor(m => m.Make)</label>
+    @Html.EditorFor(m => m.Make)
+    @Html.ValidationMessageFor(m => m.Make)
+</div>
+<div class="row">
+    <label>@Html.LabelFor(m => m.Model)</label>
+    @Html.EditorFor(m => m.Model)
+    @Html.ValidationMessageFor(m => m.Model)
+</div>
+<div class="row">
+    <label>@Html.LabelFor(m => m.Year)</label>
+    @Html.EditorFor(m => m.Year)
+    @Html.ValidationMessageFor(m => m.Year)
+</div>
+<div class="row">
+    <label>@Html.LabelFor(m => m.CurrentMileage)</label>
+    @Html.EditorFor(m => m.CurrentMileage)
+    @Html.ValidationMessageFor(m => m.CurrentMileage)
+</div>
+<div class="row">
+    <label>@Html.LabelFor(m => m.Bought)</label>
+    @Html.EditorFor(m => m.Bought)
+    @Html.ValidationMessageFor(m => m.Bought)
+</div>
+<div class="row">
+    <label>@Html.LabelFor(m => m.InitialMileage)</label>
+    @Html.EditorFor(m => m.InitialMileage)
+    @Html.ValidationMessageFor(m => m.InitialMileage)
+</div>
+
+<div class="row">
+    <div>
+        <label>@Html.LabelFor(m => m.Events)</label>
+    </div>
+    <div id="eventsHolder">
+        @if (Model.Events.Count > 0)
+        {
+            for (int i = 0; i < Model.Events.Count; i++)
+            {
+                <div>
+                    @Html.EditorFor(m => m.Events[i])
+                </div>
+            }   
+        }
+        else
+        {
+            Model.Events.Add(new Event());
+            
+            <div style="display:none;">
+                @Html.EditorFor(m => m.Events[0])
+            </div>
+        }
+    </div>
+    <div>
+        <a onclick="Irving.CollectionManager.addItem('eventsHolder')">+</a>
+    </div>
+</div>
+@Html.HiddenFor(m => m.Id)
