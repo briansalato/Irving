@@ -2,41 +2,25 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>Irving | @ViewBag.Title</title>
+        @* FavIcon *@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
-        <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/themes/base/css")" rel="stylesheet" type="text/css" />
-        <script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
-        <script src="@Url.Script("dashboard.js")"></script>
-        <script src="@Url.Script("dbCrud.js")"></script>
-        <script src="@Url.Script("collectionManager.js")"></script>
-        <script src="@Url.Script("routing.js")"></script>
-        <script src="@Url.Script("asset.js")"></script>
-        <script src="@Url.Script("global.js")"></script>
-        <link href="@Url.Stylesheet("site.less")" rel="stylesheet" type="text/css" />
+
+        @* Stylesheets *@
+        @Styles.Render("~/bundles/css/jqueryTheme", "~/bundles/css/site")
+
+        @* Javascript *@
+        @Scripts.Render("~/bundles/js/all")
+
         <meta name="viewport" content="width=device-width" />
     </head>
     <body>
         <header>
             <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here.", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li><a href="@Url.Home()">Home</a></li>
-                            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                        </ul>
-                    </nav>
-                </div>
+                <a id="logo" href="@Url.Home()">Irving</a>
             </div>
         </header>
         <div id="body">
-            @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @Html.ValidationSummary()
                 @RenderBody()
@@ -45,13 +29,7 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
-                <div class="float-right">
-                    <ul id="social">
-                        <li><a href="http://facebook.com" class="facebook">Facebook</a></li>
-                        <li><a href="http://twitter.com" class="twitter">Twitter</a></li>
-                    </ul>
+                    <p>&copy; @DateTime.Now.Year - Brian Salato</p>
                 </div>
             </div>
         </footer>

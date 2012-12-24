@@ -1,4 +1,77 @@
-﻿.button {
+﻿body {
+    background-color: AliceBlue;
+    body: 0;
+    margin: 0;
+    font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
+    color: #333;
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    width: 960px;
+}
+
+/******************************
+ * Header
+ ******************************/
+header {
+    background: White;
+    border-bottom: 3px solid grey;
+    padding: 10px 0;
+}
+
+#logo {
+    color: DarkSlateGray;
+    font-size: 35px;
+    text-decoration: none;
+}
+
+/********************************
+ * Dashboard
+ ********************************/
+ #dashboard {
+    ul {
+        display: inline-block;
+    }
+    li {
+        list-style: none;
+        display: inline-block;
+    }
+
+    a {
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 150px;
+        height: 50px;
+        display: inline-block;
+        text-align: right;
+        text-decoration: none;
+        color: Black;
+        font-size: 1.1em;
+
+        &:hover {
+            background: LightGoldenRodYellow;
+        }
+
+        img {
+            height: 50px;
+        }
+    }
+ }
+
+.borderBox() {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+body {
+    font-size: 1em;
+}
+
+.button {
     cursor: pointer;
 }
 
@@ -56,4 +129,77 @@
     border: 1px solid black;
     padding: 10px;
     display:inline-block;
+}
+
+.parentNode {
+    position: absolute;
+    left: -100px;
+    text-align: right;
+    width: 100px;
+    height: 40px;
+    top: -10px;
+    background-image: url("lastnode.png");
+    background-repeat: no-repeat;
+    background-position: 95% 100%;
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+.16pxButton() {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    padding: 0;
+    margin: 0 5px;
+}
+
+.editLink {
+    .16pxButton();
+    background: url('pencil.png');
+}
+
+.deleteLink {
+    .16pxButton();
+    background: url('bin.png');
+}
+
+.addLink {
+    .16pxButton();
+    background: url('add.png');
+}
+
+.invisBox {
+    position:relative;
+}
+
+.date {
+    width:110px;    
+}
+
+.field {
+    textarea {
+        width: 100%;
+        .borderBox();
+    }
+
+    input {
+        width: 100%;
+        .borderBox();
+    }
+}
+
+.field.half {
+    display: inline-block;
+    width: 49%;
+}
+
+.form400 {
+    width: 400px;
+    min-width: 300px;
 }

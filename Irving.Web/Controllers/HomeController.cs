@@ -13,37 +13,16 @@ namespace Irving.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        [ExcludeFromCodeCoverage]
-        public ActionResult Index()
-        {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
-        }
-
-        [ExcludeFromCodeCoverage]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your quintessential app description page.";
-
-            return View();
-        }
-
-        [ExcludeFromCodeCoverage]
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your quintessential contact page.";
-
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Dashboard()
         {
-            var carFilter = new CarFilter();
             var viewModel = new DashboardViewModel()
             {
-                Assets = _assetRepo.Get(carFilter)
+                Assets = _assetRepo.GetAll().Select(asset => new DashboardAssetViewModel() 
+                {
+                    Id = asset.Id,
+                    Name = asset.Name
+                }).ToList()
             };
 
             return View(viewModel);

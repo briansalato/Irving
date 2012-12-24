@@ -9,8 +9,12 @@ namespace Irving.Web.ViewModels
 {
     public class DashboardViewModel
     {
-        public IList<string> Alerts { get; set; }
-        public IList<Asset> Assets { get; set; }
-        public IList<SelectListItem> AvailableParentAssets { get; set; }
+        public IList<DashboardAssetViewModel> Assets { get; set; }
+    }
+
+    public class DashboardAssetViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

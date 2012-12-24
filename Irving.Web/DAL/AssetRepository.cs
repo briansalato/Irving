@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Irving.Web.Models;
 using System.Data.Entity;
+using Irving.Web.Filter;
 
 namespace Irving.Web.DAL
 {
@@ -11,8 +12,7 @@ namespace Irving.Web.DAL
     {
         protected override IQueryable<Asset> GetIncludes()
         {
-            return _dbSet.Include(d => d.Parent)
-                .Include(d => d.Notes);
+            return _dbSet.Include(d => d.Notes);
         }
     }
 }

@@ -2,14 +2,18 @@
 
 @{
     ViewBag.Title = "Edit";
-    ViewBag.AvailableParentAssets = Model.AvailableParentAssets;
 }
 
 <h2>Edit Asset</h2>
 
 @using (Html.BeginForm())
 {
-    @Html.EditorFor(model => model.Asset)
+    <div class="row">
+        @Html.LabelFor(m => m.Name)
+        @Html.EditorFor(m => m.Name)
+    </div>
+
+    @Html.HiddenFor(m => m.Id)
         
     <input type="submit" value="Save" />
 }

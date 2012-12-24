@@ -41,7 +41,7 @@ namespace Irving.Web.Tests
         public static T SetupController<T>(T controller) where T : Controller
         {
             var routes = new RouteCollection();
-            MvcApplication.RegisterRoutes(routes);
+            RouteConfig.RegisterRoutes(routes);
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             request.SetupGet(r => r.ApplicationPath).Returns("/");

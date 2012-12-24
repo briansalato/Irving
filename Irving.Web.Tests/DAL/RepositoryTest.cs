@@ -28,7 +28,7 @@ namespace Irving.Web.Tests.DAL
         public void Get_When_Filter_Is_Null()
         {
             //arrange
-            DbFilter filter = null;
+            IDbFilter<ConcreateBaseModel> filter = null;
             var fakeBaseModels = new List<ConcreateBaseModel>()
                            {
                                new ConcreateBaseModel() { Id = 1 },
@@ -44,47 +44,26 @@ namespace Irving.Web.Tests.DAL
         }
 
         [TestMethod]
-        public void Get_When_All_Properties_Are_Null()
+        public void Get_When_Filter_Is_Not_Null()
         {
             //arrange
-            var filter = new DbFilter();
             var fakeBaseModels = new List<ConcreateBaseModel>()
                            {
                                new ConcreateBaseModel() { Id = 1 },
-                               new ConcreateBaseModel() { Id = 5 },
-                               new ConcreateBaseModel() { Id = 6 },
+                               new ConcreateBaseModel() { Id = 2 },
                            };
+            var mockFilter = new Mock<IDbFilter<ConcreateBaseModel>>();
+            mockFilter.Setup(m => m.Filter(It.IsAny<IQueryable<ConcreateBaseModel>>()))
+                .Returns((IQueryable<ConcreateBaseModel> query) => query.Where(item => item.Id == 2));
+
             _dbSet.SetData(fakeBaseModels);
 
             //act
-            var results = _repo.Get(filter);
+            var results = _repo.Get(mockFilter.Object);
 
             //assert
-            TestHelper.EnumerableEqual(fakeBaseModels, results, "All items should have been returned");
-        }
-
-        [TestMethod]
-        public void Get_When_Id_Is_Not_Null()
-        {
-            //arrange
-            var filter = new DbFilter()
-            {
-                Id = 5
-            };
-            var fakeBaseModels = new List<ConcreateBaseModel>()
-                           {
-                               new ConcreateBaseModel() { Id = 1 },
-                               new ConcreateBaseModel() { Id = 5 },
-                               new ConcreateBaseModel() { Id = 6 },
-                           };
-            _dbSet.SetData(fakeBaseModels);
-
-            //act
-            var result = _repo.Get(filter);
-
-            //assert
-            Assert.AreEqual(1, result.Count, "The should have been one result returned");
-            Assert.AreEqual(5, result.Single().Id, "The returned result should have been Id=5");
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual(2, results.First().Id);
         }
         #endregion
 
@@ -229,7 +208,7 @@ namespace Irving.Web.Tests.DAL
         #endregion
     }
 
-    class ConcreateBaseModel : DbModel
+    public class ConcreateBaseModel : DbModel
     {
         //public bool WasChanged { get; set; }
     }

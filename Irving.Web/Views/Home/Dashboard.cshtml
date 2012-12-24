@@ -4,33 +4,30 @@
     ViewBag.Title = "Dashboard";
 }
 
-<h2>Current Assets</h2>
+<h1>Current Assets</h1>
 <a class="button" href="@(Url.Create<Asset>())">+</a>
-<div class="dashboard">
+<div id="dashboard">
+    @DisplayAssetLeaves(Model.Assets)
+</div>
+
+@helper DisplayAssetLeaves(IEnumerable<Irving.Web.ViewModels.DashboardAssetViewModel> assets) 
+{
     <ul>
-        @foreach (var asset in Model.Assets)
+        @foreach (var asset in assets)
         {
             <li>
-                <span>
+                <a href="@(Url.Show<Asset>(asset.Id))">
                     <img />
-                </span>
-                <span>
-                    <div>
-                        <a href="@Url.Show(asset)">@asset.Name</a>
-                    </div>
-                    <div>
-                    
-                    </div>
-                    <div>
-                    
-                    </div>
-                </span>
-                
+                    @asset.Name
+                </a>
             </li>
         }
     </ul>
-</div>
+}
+@using(Ajax.BeginForm("Index", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "testReplace", HttpMethod = "POST" }))
+{
 
+}
 @*
 @if (Model.Alerts != null
     && Model.Alerts.Count > 0)

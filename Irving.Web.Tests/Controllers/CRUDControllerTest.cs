@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Irving.Web.DAL;
 using System.ComponentModel.DataAnnotations;
 using Irving.Web.Helpers;
+using Irving.Web.Filter;
 
 namespace Irving.Web.Tests.Controllers
 {
@@ -242,8 +243,8 @@ namespace Irving.Web.Tests.Controllers
         {
             //arrange
             var itemsFromDb = new List<FakeDbModel>();
-            _mockDBRepo.Setup(m => m.Get(It.Is<Filter.DbFilter>(filter => !filter.Id.HasValue)))
-                       .Returns(itemsFromDb);
+            _mockDBRepo.Setup(m => m.GetAll())
+                .Returns(itemsFromDb);
 
             //act
             var viewResult = _crudController.List() as ViewResult;

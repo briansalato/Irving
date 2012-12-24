@@ -4,71 +4,23 @@
     ViewBag.Title = "Show";
 }
 
-<h2>@Model.Asset.Name</h2>
+@Html.Partial("_ConfirmDelete", Model.Id)
 
-@Html.Partial("_ConfirmDelete", Model.Asset)
-@Html.Partial("_AddNote", new Note() { AssetId = Model.Asset.Id })
+<h1>
+    @Model.Name 
+    <a class="editLink" href="@(Url.Edit<Asset>(Model.Id))"></a>
+    <a href="#" class="deleteLink" onclick="Irving.DbCRUD.showConfirmDelete()"></a>
+</h1>
 
-<a href="@(Url.Edit(Model.Asset))">Edit</a>
-@if (Model.CanDelete)
-{
-    <a href="#" onclick="Irving.DbCRUD.showConfirmDelete()">Delete</a>
-}
 <div>
     <div class="row">
         <div class="label">
-            @Html.LabelFor(m => m.Asset.Name)
-        </div>
-        <div class="">
-            @Html.DisplayFor(m => m.Asset.Name)
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="label">
-            @Html.LabelFor(m => m.Asset.Parent)
-        </div>
-        <div class="value">
-            @if (Model.Asset.Parent != null)
-            {
-                @Html.DisplayFor(m => m.Asset.Parent.Name)
-            }
-            else
-            {
-                @:None
-            }
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="label">
-            @Html.LabelFor(m => m.Asset.Children)
-        </div>
-        <div class="value">
-            @if (Model.Asset.Children.Count > 0)
-            {
-                <ul>
-                    @foreach (var child in Model.Asset.Children)
-                    {
-                        <li>@child.Name</li>    
-                    }
-                </ul>
-            }
-            else
-            {
-                @:None
-            }
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="label">
-            @Html.LabelFor(m => m.Asset.Notes)
-            <a href="#" onclick="Irving.Asset.showAddNote()">Add Note</a>
+            @Html.LabelFor(m => m.Notes)
+            <a class="addLink" href="#" onclick="Irving.Asset.showAddNote()"></a>
         </div>
         <div class="value">
             <ul id="noteList">
-                @foreach (var note in Model.Asset.Notes)
+                @foreach (var note in Model.Notes)
                 {
                     @Html.Partial("_Note", note)
                 }
@@ -76,7 +28,10 @@
         </div>
     </div>
 
-    @Html.HiddenFor(m => Model.Asset.Id)
+    @Html.HiddenFor(m => Model.Id)
 </div>
 
 <a href="@Url.Dashboard()">Back</a>
+
+
+@Html.Partial("_AddNote", new Irving.Web.ViewModels.NoteViewModel())

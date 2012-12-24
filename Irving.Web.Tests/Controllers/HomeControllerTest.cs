@@ -24,7 +24,7 @@ namespace Irving.Web.Tests.Controllers
             var user = new User();
             var assets = new List<Asset>();
             var mockAssetRepo = new Mock<IRepository<Asset>>();
-            mockAssetRepo.Setup(m => m.Get(It.Is<DbFilter>(f => f.Id.HasValue == false)))
+            mockAssetRepo.Setup(m => m.Get(It.Is<DbFilter<Asset>>(f => f.Id.HasValue == false)))
                        .Returns(assets);
 
             var controller = new HomeController(mockAssetRepo.Object);

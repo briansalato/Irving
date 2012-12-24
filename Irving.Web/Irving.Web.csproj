@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,11 +13,21 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Irving.Web</RootNamespace>
     <AssemblyName>Irving.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,21 +46,19 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="dotless.Core, Version=1.3.1.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\dotless.1.3.1.0\lib\dotless.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentValidation">
-      <HintPath>..\packages\FluentValidation.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentValidation.Mvc">
-      <HintPath>..\packages\FluentValidation.MVC4.3.4.6.0\lib\Net40\FluentValidation.Mvc.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -57,6 +67,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -67,8 +78,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -78,12 +90,13 @@
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.Web.Optimization.1.0.0-beta\lib\net40\System.Web.Optimization.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.0-alpha1\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
@@ -96,21 +109,22 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\LessTransform.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Attributes\CopyModelStateAttribute.cs" />
-    <Compile Include="Attributes\DontValidateChildProperties.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CarController.cs" />
@@ -124,9 +138,8 @@
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IrvingDbContext.cs" />
     <Compile Include="DAL\Repository.cs" />
-    <Compile Include="Filter\AssetFilter.cs" />
-    <Compile Include="Filter\CarFilter.cs" />
     <Compile Include="Filter\DbFilter.cs" />
+    <Compile Include="Filter\IDbFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,24 +156,15 @@
     <Compile Include="Helpers\Messages.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Helpers\UrlHelperExtension.cs" />
-    <Compile Include="Migrations\201211262107373_InitialLoad.cs" />
-    <Compile Include="Migrations\201211262107373_InitialLoad.Designer.cs">
-      <DependentUpon>201211262107373_InitialLoad.cs</DependentUpon>
+    <Compile Include="Migrations\201212031841276_InitialLoad.cs" />
+    <Compile Include="Migrations\201212031841276_InitialLoad.Designer.cs">
+      <DependentUpon>201212031841276_InitialLoad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201211262217086_AddedChildrenToAssets.cs" />
-    <Compile Include="Migrations\201211262217086_AddedChildrenToAssets.Designer.cs">
-      <DependentUpon>201211262217086_AddedChildrenToAssets.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211271629183_AddedAssetIdToNote.cs" />
-    <Compile Include="Migrations\201211271629183_AddedAssetIdToNote.Designer.cs">
-      <DependentUpon>201211271629183_AddedAssetIdToNote.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211272203282_AddedDateToNote.cs" />
-    <Compile Include="Migrations\201211272203282_AddedDateToNote.Designer.cs">
-      <DependentUpon>201211272203282_AddedDateToNote.cs</DependentUpon>
+    <Compile Include="Migrations\201212071902359_RemovedTreeFromAsset.cs" />
+    <Compile Include="Migrations\201212071902359_RemovedTreeFromAsset.Designer.cs">
+      <DependentUpon>201212071902359_RemovedTreeFromAsset.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Asset.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\DbModel.cs" />
@@ -169,14 +173,28 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\AssetValidator.cs" />
-    <Compile Include="ViewModels\EditAssetViewModel.cs" />
-    <Compile Include="ViewModels\CreateAssetViewModel.cs" />
+    <Compile Include="ViewModels\AssetViewModels.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
-    <Compile Include="ViewModels\RouteViewModel.cs" />
-    <Compile Include="ViewModels\ShowAssetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\add.png" />
+    <Content Include="Content\bin.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\jquery-smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jquery-smoothness\jquery-ui-1.9.2.custom.css" />
+    <Content Include="Content\lastnode.png" />
+    <Content Include="Content\pencil.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -240,27 +258,25 @@
     <Content Include="DAL\Migration Notes.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\asset.js" />
-    <Content Include="Scripts\collectionManager.js" />
-    <Content Include="Scripts\dbCrud.js" />
-    <Content Include="Scripts\dashboard.js" />
-    <Content Include="Scripts\global.js" />
-    <Content Include="Scripts\jquery-1.8.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.9.0.js" />
-    <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
-    <Content Include="Scripts\jquery.ba-bbq.js" />
-    <Content Include="Scripts\jquery.ba-bbq.min.js" />
+    <Content Include="Scripts\irving-asset.js" />
+    <None Include="Scripts\collectionManager.js.notInUse" />
+    <Content Include="Scripts\irving-dbCrud.js" />
+    <Content Include="Scripts\irving-global.js" />
+    <None Include="Scripts\jquery-1.8.3.intellisense.js">
+      <DependentUpon>jquery-1.8.3.js</DependentUpon>
+    </None>
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js">
+      <DependentUpon>jquery-1.8.3.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.9.2.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.min.js">
+      <DependentUpon>jquery-ui-1.9.2.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\knockout-2.2.0.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\routing.js" />
-    <Content Include="Views\Car\Create.cshtml" />
-    <Content Include="Views\Car\Edit.cshtml" />
-    <Content Include="Views\Car\_ConfirmDelete.cshtml" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js">
+      <DependentUpon>jquery.unobtrusive-ajax.js</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -270,9 +286,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Scripts\AjaxLogin.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\aspNetHome.png" />
     <Content Include="Images\bullet.png" />
@@ -286,21 +300,12 @@
     <Content Include="Images\twitter.png" />
     <Content Include="Images\windowsLive.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AssetType\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -308,11 +313,7 @@
   <ItemGroup>
     <None Include="Content\site.less" />
     <Content Include="Views\Home\Dashboard.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Car\Show.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Car.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Event.cshtml" />
     <Content Include="Views\Asset\Create.cshtml" />
     <Content Include="Views\Asset\Edit.cshtml" />
     <Content Include="Views\Asset\Show.cshtml" />
@@ -322,21 +323,20 @@
     <Content Include="Views\Asset\_Note.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201211262107373_InitialLoad.resx">
-      <DependentUpon>201211262107373_InitialLoad.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201212031841276_InitialLoad.resx">
+      <DependentUpon>201212031841276_InitialLoad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211262217086_AddedChildrenToAssets.resx">
-      <DependentUpon>201211262217086_AddedChildrenToAssets.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211271629183_AddedAssetIdToNote.resx">
-      <DependentUpon>201211271629183_AddedAssetIdToNote.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211272203282_AddedDateToNote.resx">
-      <DependentUpon>201211272203282_AddedDateToNote.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201212071902359_RemovedTreeFromAsset.resx">
+      <DependentUpon>201212071902359_RemovedTreeFromAsset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -350,12 +350,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59695</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:59695/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

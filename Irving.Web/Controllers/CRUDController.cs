@@ -96,7 +96,7 @@ namespace Irving.Web.Controllers
         [HttpGet]
         public virtual ActionResult List()
         {
-            var models = _modelRepo.Get(new DbFilter());
+            var models = _modelRepo.GetAll();
             return View(_listViewName, models);
         }
 

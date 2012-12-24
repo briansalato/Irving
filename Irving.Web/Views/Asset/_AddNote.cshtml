@@ -1,17 +1,24 @@
-﻿@model Irving.Web.Models.Note
+﻿@model Irving.Web.ViewModels.NoteViewModel
 
 <div id="addNoteDialog" class="hidden modal" title="Add Note">
-    <div class="row">
-        @Html.LabelFor(m => m.Title)
-        @Html.EditorFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Date, new { @class="date" })
-    </div>
+    <div class="form400">
+        <div class="field half">
+            @Html.LabelFor(m => m.Title)
+            @Html.EditorFor(m => m.Title)
+        </div>
 
-    <div class="row">
-        @Html.LabelFor(m => m.Text)
-        @Html.TextAreaFor(m => m.Text)
-    </div>
+        <div class="field half">
+            @Html.LabelFor(m => m.Date)
+            @Html.EditorFor(m => m.Date)
+        </div>
 
-    <input type="button" onclick="Irving.Asset.addNote()" value="Add" />
-    <input type="button" onclick="Irving.Asset.hideAddNote()" value="Cancel" />
+        <div class="field">
+            <div class="label">
+                @Html.LabelFor(m => m.Text)
+            </div>
+            <div class="value">
+                @Html.TextAreaFor(m => m.Text)
+            </div>
+        </div>
+    </div>
 </div>

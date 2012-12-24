@@ -15,12 +15,22 @@ namespace Irving.Web.DAL
     {
         public T GetById(int id)
         {
-            return Get(new DbFilter() { Id = id }).FirstOrDefault();
+            return Get(new DbFilter<T>() { Id = id }).FirstOrDefault();
         }
 
-        public IList<T> Get(DbFilter filter)
+        public IList<T> Get(IDbFilter<T> filter)
         {
-            return GetFilterQuery(filter).ToList();
+            var query = GetIncludes();
+            if (filter != null)
+            {
+                query = filter.Filter(query);
+            }
+            return query.ToList();
+        }
+
+        public IList<T> GetAll()
+        {
+            return Get(null);
         }
 
         public void Update(T itemToUpdate)
@@ -62,20 +72,6 @@ namespace Irving.Web.DAL
         protected virtual IQueryable<T> GetIncludes()
         {
             return _dbSet.AsQueryable();
-        }
-
-        protected virtual IQueryable<T> GetFilterQuery(DbFilter filter)
-        {
-            var queryable = this.GetIncludes();
-            if (filter != null)
-            {
-                if (filter.Id.HasValue)
-                {
-                    queryable = queryable.Where(q => q.Id == filter.Id.Value);
-                }
-            }
-
-            return queryable;
         }
 
         protected virtual void AddChildren(T itemToAdd)

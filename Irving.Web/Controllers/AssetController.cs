@@ -14,104 +14,147 @@ using Irving.Web.Attributes;
 
 namespace Irving.Web.Controllers
 {
-    public class AssetController : CRUDController<Asset>
+    public class AssetController : BaseController
     {
-        [HttpPost]
-        [DontValidateChildProperties]
-        public ActionResult CreateAsset(CreateAssetViewModel viewModel)
+        [HttpGet]
+        public virtual ActionResult Show(int id)
         {
-            return base.Create(viewModel.Asset);
+            var asset = _assetRepo.GetById(id);
+            if (asset == null) 
+            {
+                this.AddFlashError(Keys.NotFound<Asset>(), Messages.NotFound<Asset>());
+                return Redirect(Url.List<Asset>());
+            }
+
+            var viewModel = new ShowAssetViewModel()
+            {
+                Name = asset.Name,
+                Id = asset.Id,
+                Notes = asset.Notes.ConvertAll<NoteViewModel>(note => new NoteViewModel()
+                {
+                    Text = note.Text,
+                    Title = note.Title,
+                    Date = note.Date
+                })
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var viewModel = new CreateAssetViewModel();
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        [DontValidateChildProperties]
-        public ActionResult EditAsset(EditAssetViewModel viewModel)
+        public ActionResult Create(CreateAssetViewModel viewModel)
         {
-            return base.Edit(viewModel.Asset);
+            if (!ModelState.IsValid)
+            {
+                return Create();
+            }
+
+            var newAsset = new Asset()
+            {
+                Name = viewModel.Name
+            };
+
+            _assetRepo.Add(newAsset);
+            _assetRepo.SaveChanges();
+            return Redirect(Url.Show(newAsset));
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var asset = _assetRepo.GetById(id);
+
+            if (asset == null)
+            {
+                this.AddFlashError(Keys.NotFound<Asset>(), Messages.NotFound<Asset>());
+                return Redirect(Url.List<Asset>());
+            }
+
+            var viewModel = new EditAssetViewModel()
+            {
+                Id = asset.Id,
+                Name = asset.Name
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        [DontValidateChildProperties]
-        public PartialViewResult AddNote(Note note)
+        public ActionResult Edit(EditAssetViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Edit(viewModel.Id);
+            }
+
+            var assetToUpdate = new Asset()
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name
+            };
+
+            _assetRepo.Update(assetToUpdate);
+            _assetRepo.SaveChanges();
+            return Redirect(Url.Show(assetToUpdate));
+        }
+
+        [HttpPost]
+        public virtual RedirectResult Delete(int id)
+        {
+            var result = _assetRepo.Delete(id);
+            if (!result)
+            {
+                this.AddFlashError(Keys.NotFound<Asset>(), Messages.NotFound<Asset>());
+                return Redirect(Url.Show<Asset>(id));
+            }
+
+            _assetRepo.SaveChanges();
+            return Redirect(Url.Dashboard());
+        }
+
+        [HttpPost]
+        public PartialViewResult AddNote(NoteViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 throw new Exception();
             }
 
+            var note = new Note()
+            {
+                Text = viewModel.Text,
+                Title = viewModel.Title,
+                Date = viewModel.Date,
+                AssetId = viewModel.AssetId
+            };
+
             _noteRepo.Add(note);
             _noteRepo.SaveChanges();
-            return PartialView("_Note", note);
+            return PartialView("_Note", viewModel);
         }
-
-        #region Protected Methods
-        protected override object SetupShowViewModel(int id)
-        {
-            ShowAssetViewModel viewModel = null;
-            var asset = _modelRepo.GetById(id);
-            if (asset != null) 
-            {
-                viewModel = new ShowAssetViewModel()
-                {
-                    Asset = asset,
-                    CanDelete = asset.Children.Count == 0
-                };
-            }
-            return viewModel;
-        }
-
-        protected override object SetupCreateViewModel()
-        {
-            return new CreateAssetViewModel()
-            {
-                Asset = new Asset(),
-                AvailableParentAssets = GetAvailableParents(null)
-            };
-        }
-
-        protected override object SetupEditViewModel(int id)
-        {
-            EditAssetViewModel viewModel = null;
-            var asset = _modelRepo.GetById(id);
-            if (asset != null)
-            {
-                viewModel = new EditAssetViewModel()
-                {
-                    Asset = _modelRepo.GetById(id),
-                    AvailableParentAssets = GetAvailableParents(id)
-                };
-            }
-
-            return viewModel;
-        }
-        #endregion
-
-        #region Private Methods
-        private IEnumerable<SelectListItem> GetAvailableParents(int? id)
-        {
-            var availParentAssetsFilter = new AssetFilter() { NoChildren = true };
-            return _modelRepo.Get(availParentAssetsFilter)
-                .Where(dbAsset => dbAsset.Id != id)
-                .Select(dbAsset => new SelectListItem()
-                {
-                    Text = dbAsset.Name,
-                    Value = dbAsset.Id.ToString()
-                });
-        }
-        #endregion
 
         #region Constructors
         [ExcludeFromCodeCoverage]
         public AssetController() : this (new AssetRepository(), new NoteRepository()) {}
 
         [ExcludeFromCodeCoverage]
-        public AssetController(IRepository<Asset> assetRepo, IRepository<Note> noteRepo) :base(assetRepo) 
-        { 
+        public AssetController(IRepository<Asset> assetRepo, IRepository<Note> noteRepo)
+        {
+            _assetRepo = assetRepo;
             _noteRepo = noteRepo;
         }
         #endregion
 
         #region Variables
+        private readonly IRepository<Asset> _assetRepo;
         private readonly IRepository<Note> _noteRepo;
         #endregion
     }

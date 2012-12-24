@@ -1,8 +1,8 @@
-﻿@model Irving.Web.Models.Asset
+﻿@model int
 
 <div id="confirmDelete" class="confirmDelete hidden">
     <form action="@(Url.DeletePost<Asset>())" method="post">
-        @Html.HiddenFor(m => m.Id)
+        <input type="hidden" name="Id" value="@Model" />
 
         <p>Are you sure you want to delete this asset? This change cannot be reverted.</p>
 
